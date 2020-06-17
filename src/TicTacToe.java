@@ -17,22 +17,23 @@ public class TicTacToe {
 
     public static boolean checkRows (Character[][] board)
     {
-        if (board[0][0] == board[0][1] && board[0][0] == board[0][2])
+        for (int i = 0; i < board.length; i++)
         {
-            return true;
+            boolean rowWinner = true;
+            for (int j = 1; j < board.length; j++)
+            {
+                if (board[i][0] != board[i][j])
+                {
+                    rowWinner = false;
+                    break;
+                }
+            }
+            if (rowWinner)
+            {
+                return true;
+            }
         }
-        else if (board[1][0] == board[1][1] && board[1][0] == board[1][2])
-        {
-            return true;
-        }
-        else if (board[2][0] == board[2][1] && board[2][0] == board[2][2])
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     public static boolean checkColumns (Character[][] board)
@@ -79,6 +80,7 @@ public class TicTacToe {
         {
             return true;
         }
+        /*
         // Check columns
         if (checkColumns(board))
         {
@@ -87,6 +89,9 @@ public class TicTacToe {
         // Check diagonals
         // If false then no winner.
         return checkDiagonals(board);
+
+         */
+        return false;
     }
 
     public static void main(String[] args) {
