@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class TicTacToe {
 
     public static boolean isSquare (Character[][] board)
@@ -38,38 +36,52 @@ public class TicTacToe {
 
     public static boolean checkColumns (Character[][] board)
     {
-        if (board[0][0] == board[1][0] && board[0][0] == board[2][0])
+        for (int i = 0; i < board.length; i++)
         {
-            return true;
+            boolean colWinner = true;
+            for (int j = 1; j < board.length; j++)
+            {
+                if (board[0][i] != board[j][i])
+                {
+                    colWinner = false;
+                    break;
+                }
+            }
+            if (colWinner)
+            {
+                return true;
+            }
         }
-        else if (board[0][1] == board[1][1] && board[0][1] == board[2][1])
-        {
-            return true;
-        }
-        else if (board[0][2] == board[1][2] && board[0][2] == board[2][2])
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     public static boolean checkDiagonals (Character[][] board)
     {
-        if (board[0][0] == board[1][1] && board[0][0] == board[2][2])
+        boolean diagWinner = true;
+        // top left to bottom right
+        for (int i = 1; i < board.length; i++)
+        {
+            if (board[0][0] != board[i][i])
+            {
+                diagWinner = false;
+                break;
+            }
+        }
+        if (diagWinner)
         {
             return true;
         }
-        else if (board[0][2] == board[1][1] && board[0][2] == board[2][0])
+        diagWinner = true;
+        // top right to bottom left
+        for (int i = 1; i < board.length; i++)
         {
-            return true;
+            if (board[0][board.length - 1] != board[i][board.length - (i + 1)])
+            {
+                diagWinner = false;
+                break;
+            }
         }
-        else
-        {
-            return false;
-        }
+        return diagWinner;
     }
 
 
@@ -80,7 +92,6 @@ public class TicTacToe {
         {
             return true;
         }
-        /*
         // Check columns
         if (checkColumns(board))
         {
@@ -89,9 +100,6 @@ public class TicTacToe {
         // Check diagonals
         // If false then no winner.
         return checkDiagonals(board);
-
-         */
-        return false;
     }
 
     public static void main(String[] args) {
@@ -100,7 +108,7 @@ public class TicTacToe {
         // [' ', O, X]
         // [O, X, O]
         Character[][] winnerBoard = new Character[][]{{'X', 'X', 'O'}, {' ', 'O', 'X'}, {'O', 'X', 'O'}};
-
+        
         // A no winner board
         // [X, X, O]
         // [O, O, X]
@@ -109,8 +117,8 @@ public class TicTacToe {
 
         // Check if board is square
         // Check if there is a winner and display results
-        if (isSquare(winnerBoard)) {
-            if (isWinner(winnerBoard)) {
+        if (isSquare(noWinnerBoard)) {
+            if (isWinner(noWinnerBoard)) {
                 System.out.println("A winner board!");
             } else {
                 System.out.println("A no winner board!");
